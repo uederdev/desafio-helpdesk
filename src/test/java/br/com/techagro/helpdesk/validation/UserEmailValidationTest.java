@@ -1,6 +1,7 @@
 package br.com.techagro.helpdesk.validation;
 
 import br.com.techagro.helpdesk.domain.User;
+import br.com.techagro.helpdesk.exception.UserDuplicadoException;
 import br.com.techagro.helpdesk.repository.UserRepository;
 import jakarta.validation.ValidationException;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,7 @@ class UserEmailValidationTest {
     void rejectsDuplicateEmailOnCreation() {
         User user = user(null);
         when(repository.findByEmail(user.getEmail())).thenReturn(Optional.of(user(1L)));
-        assertThrows(ValidationException.class, () -> validation.validate(user));
+        assertThrows(UserDuplicadoException.class, () -> validation.validate(user));
     }
 
     @Test
@@ -42,7 +43,7 @@ class UserEmailValidationTest {
     void rejectsAnotherUsersEmailOnUpdate() {
         User user = user(2L);
         when(repository.findByEmail(user.getEmail())).thenReturn(Optional.of(user(1L)));
-        assertThrows(ValidationException.class, () -> validation.validate(user));
+        assertThrows(UserDuplicadoException.class, () -> validation.validate(user));
     }
 
     private User user(Long id) {
