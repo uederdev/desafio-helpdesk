@@ -35,3 +35,8 @@ build/
 ### Variaveis de Ambiente ###
 .env
 
+### Arquivos PostgreSQL ###
+data/
+
+### Requisições HTTP ###
+requests/
