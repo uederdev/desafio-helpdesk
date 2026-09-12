@@ -30,9 +30,11 @@ jobs:
           --health-retries 5
 
     steps:
+      # Baixa o codigo fonte para compilar
       - name: 'Baixar o código fonte'
         uses: actions/checkout@v5
 
+      # Configura a versão do JDK
       - name: 'Configura o JDK 21'
         uses: actions/setup-java@v5
         with:
@@ -40,6 +42,8 @@ jobs:
           java-version: '21'
           cache: 'maven'
 
+      # Inicia o processo de compilação - com os dados do arquivo de variaveis do
+      # ambiente
       - name: 'Compilar o código fonte'
         env:
           DB_NAME: ${{ secrets.DB_NAME }}
